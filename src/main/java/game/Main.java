@@ -3,6 +3,8 @@ package game;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -17,6 +19,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setTitle("Test window");
         stage.setScene(scene);
+        GameService.setUp(stage, root);
         stage.show();
     }
 }
