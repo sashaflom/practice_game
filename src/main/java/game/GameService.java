@@ -9,6 +9,7 @@ public class GameService {
 
     private static Stage currentStage;
     private static Group root;
+    private static Background background;
 
 
     public static void setUp(Stage stage, Group group){
@@ -16,13 +17,8 @@ public class GameService {
         root = group;
         stage.setWidth(1000);
         stage.setHeight(600);
-        Image image = new Image(GameService.class.getResourceAsStream("/images/background.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.setX(0);
-        imageView.setY(0);
-        imageView.setFitWidth(1000);
-        imageView.setFitHeight(600);
-        root.getChildren().add(imageView);
+        background = new Background("/images/background.png", 1000, 600);
+        root.getChildren().add(background.getImageView());
     }
 
 }
