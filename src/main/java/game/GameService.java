@@ -21,4 +21,27 @@ public class GameService {
         root.getChildren().add(background.getImageView());
     }
 
+    public static Stage getCurrentStage() {
+        return currentStage;
+    }
+
+    public static void setCurrentStage(Stage currentStage) {
+        GameService.currentStage = currentStage;
+    }
+
+    public static Group getRoot() {
+        return root;
+    }
+
+    public static void setRoot(Group root) {
+        GameService.root = root;
+    }
+
+    public static Background getBackground() {
+        return background;
+    }
+
+    public static void setBackground(Background background) {
+        GameService.background = background;
+    }
 }
