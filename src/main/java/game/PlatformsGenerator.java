@@ -1,5 +1,7 @@
 package game;
 
+import javafx.scene.image.ImageView;
+
 import java.util.List;
 import java.util.Random;
 
@@ -15,8 +17,12 @@ public class PlatformsGenerator {
     }
 
     public void generatePlatform(){
-        // int blockAmount = random.nextInt(5) + 1;
-
+        int blockAmount = random.nextInt(5) + 1;
+        double y = minHeight + random.nextDouble() * (maxHeight - minHeight);
+        Platform platform = new Platform("/images/floor_file_crop.png", 600, y, blockAmount, 50);
+        for (ImageView block : platform.getBlocks()){
+            GameService.getRoot().getChildren().add(block);
+        }
     }
 
     public List<Platform> getActivePlatforms() {
