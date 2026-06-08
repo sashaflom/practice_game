@@ -11,6 +11,7 @@ public class GameService {
     private static Background background;
     private static Floor floor;
     private static GameLoop timer;
+    private static PlatformsGenerator platformsGenerator;
 
 
     public static void setUp(Stage stage, Group group) {
@@ -25,6 +26,9 @@ public class GameService {
 
         floor = new Floor("/images/floor_tile_crop.png", 1000, 600);
         root.getChildren().add(floor.getNode());
+        platformsGenerator = new PlatformsGenerator();
+        platformsGenerator.generatePlatform();
+        platformsGenerator.generatePlatform();
     }
 
     public static void moveBackground(double time) {
@@ -57,5 +61,9 @@ public class GameService {
 
     public static void setBackground(Background background) {
         GameService.background = background;
+    }
+
+    public static void movePlatform(double time) {
+        platformsGenerator.movePlatform(time);
     }
 }

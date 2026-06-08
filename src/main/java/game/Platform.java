@@ -3,6 +3,7 @@ package game;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Platform {
@@ -18,6 +19,7 @@ public class Platform {
         this.y = y;
         this.blockAmount = blockAmount;
         this.speed = speed;
+        blocks = new ArrayList<>();
         image = new Image(getClass().getResourceAsStream(path));
         width = image.getWidth() * blockAmount;
         height = image.getHeight();
@@ -101,5 +103,15 @@ public class Platform {
 
     public void setImageView(ImageView imageView) {
         this.imageView = imageView;
+    }
+
+    public boolean update(double time) {
+        double movement = speed * time;
+        x -= movement;
+        for(ImageView block : blocks){
+            block.setX(block.getX() - movement);
+        }
+        if(x <= -width) return false;
+        return true;
     }
 }
