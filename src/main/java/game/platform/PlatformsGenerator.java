@@ -1,7 +1,6 @@
-package game;
+package game.platform;
 
-import game.platform.Platform;
-import javafx.scene.image.ImageView;
+import game.GameService;
 
 import java.util.ArrayList;
 import java.util.List;

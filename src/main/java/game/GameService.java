@@ -1,6 +1,7 @@
 package game;
 
 import game.floor.Floor;
+import game.platform.PlatformsGenerator;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 
