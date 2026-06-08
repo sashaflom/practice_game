@@ -10,6 +10,7 @@ public class GameService {
     private static Stage currentStage;
     private static Group root;
     private static Background background;
+    private static GameLoop timer;
 
 
     public static void setUp(Stage stage, Group group){

@@ -19,7 +19,9 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setTitle("Test window");
         stage.setScene(scene);
+        GameLoop timer = new GameLoop();
         GameService.setUp(stage, root);
         stage.show();
+        timer.start();
     }
 }
