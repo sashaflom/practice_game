@@ -12,6 +12,8 @@ public class Floor {
 
     private double width, height, speed;
 
+    private static final double SPACING = -3;
+
     public Floor(String path, double screenWidth, double screenHeight) {
         width = screenWidth;
         height = screenHeight;
@@ -25,7 +27,7 @@ public class Floor {
         y = (screenHeight - image.getHeight());
 
         this.tileContainer = new HBox();
-        tileContainer.setSpacing(-3);
+        tileContainer.setSpacing(SPACING);
 
         tileContainer.setLayoutX(0);
         tileContainer.setLayoutY(this.y);
@@ -50,7 +52,7 @@ public class Floor {
 
         tileContainer.setLayoutX(tileContainer.getLayoutX() - movement);
 
-        double effectiveWidth = image.getWidth() + tileContainer.getSpacing();
+        double effectiveWidth = image.getWidth() + SPACING;
 
         if (tileContainer.getLayoutX() <= -effectiveWidth) {
             tileContainer.setLayoutX(tileContainer.getLayoutX() + effectiveWidth);

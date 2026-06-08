@@ -1,45 +1,59 @@
-package game;
+package game.platform;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Platform {
 
-    private List<ImageView> blocks;
+    /**
+     * deprecated
+     * */
+//    private List<ImageView> blocks;
     private double x, y, width, height, speed;
     private int blockAmount;
     private Image image;
-    private ImageView imageView;
+
+    /*h-box nesting tiles*/
+    private final HBox tileContainer;
+
+    /*spacing const removes space between tiles*/
+    private static final double SPACING = -3;
 
     public Platform(String path, double x, double y, int blockAmount, double speed){
         this.x = x;
         this.y = y;
+
         this.blockAmount = blockAmount;
         this.speed = speed;
-        blocks = new ArrayList<>();
+
         image = new Image(getClass().getResourceAsStream(path));
+
         width = image.getWidth() * blockAmount;
         height = image.getHeight();
+
+        tileContainer = new HBox();
+        tileContainer.setLayoutX(x + image.getWidth());
+        tileContainer.setLayoutY(y);
+        tileContainer.setSpacing(SPACING);
+
         for (int i = 0; i < blockAmount; i++){
-            ImageView block = new ImageView(image);
-            block.setX(x + image.getWidth()*i);
-            block.setY(y);
-            block.setFitWidth(image.getWidth());
-            block.setFitHeight(image.getHeight());
-            blocks.add(block);
+            tileContainer.getChildren().add(new ImageView(image));
         }
     }
 
-    public List<ImageView> getBlocks() {
-        return blocks;
+    public HBox getNode() {
+        return tileContainer;
     }
 
-    public void setBlocks(List<ImageView> blocks) {
-        this.blocks = blocks;
-    }
+    /**
+     * deprecated
+     * */
+//    public void setBlocks(List<ImageView> blocks) {
+//        this.blocks = blocks;
+//    }
 
     public double getX() {
         return x;
@@ -97,20 +111,25 @@ public class Platform {
         this.image = image;
     }
 
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
+    /**
+     * deprecated
+     * */
+//    public ImageView getImageView() {
+//        return imageView;
+//    }
+//
+//    public void setImageView(ImageView imageView) {
+//        this.imageView = imageView;
+//    }
 
     public boolean update(double time) {
         double movement = speed * time;
         x -= movement;
-        for(ImageView block : blocks){
-            block.setX(block.getX() - movement);
-        }
+
+//        double effectiveWidth = image.getWidth() + SPACING;
+
+        this.tileContainer.setLayoutX(tileContainer.getLayoutX() - movement);
+
         if(x <= -width) return false;
         return true;
     }

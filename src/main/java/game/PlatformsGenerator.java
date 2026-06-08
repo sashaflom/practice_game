@@ -1,5 +1,6 @@
 package game;
 
+import game.platform.Platform;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -21,9 +22,8 @@ public class PlatformsGenerator {
         int blockAmount = random.nextInt(5) + 1;
         double y = minHeight + random.nextDouble() * (maxHeight - minHeight);
         Platform platform = new Platform("/images/floor_tile_crop.png", 600, y, blockAmount, 50);
-        for (ImageView block : platform.getBlocks()){
-            GameService.getRoot().getChildren().add(block);
-        }
+
+        GameService.getRoot().getChildren().add(platform.getNode());
         activePlatforms.add(platform);
     }
 
@@ -37,11 +37,13 @@ public class PlatformsGenerator {
 
     public void movePlatform(double time) {
         List<Platform> toRemove = new ArrayList<>();
+
         for (Platform platform : activePlatforms){
             if(!platform.update(time)){
                 toRemove.add(platform);
             }
         }
+
         if(!toRemove.isEmpty()){
             for (Platform platform : toRemove) activePlatforms.remove(platform);
         }
