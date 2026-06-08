@@ -7,12 +7,12 @@ public class GameLoop extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        if(lastUpdate == 0){
+        if (lastUpdate == 0) {
             lastUpdate = now;
             return;
         }
         long diffNano = now - lastUpdate;
-        double diffSec = diffNano/1000000000.0;
+        double diffSec = diffNano / 1000000000.0;
         lastUpdate = now;
         updateGame(diffSec);
     }

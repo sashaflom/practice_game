@@ -16,11 +16,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Group root = new Group();
-        Scene scene = new Scene(root);
-        stage.setTitle("Test window");
+        Scene scene = new Scene(root, 1000, 600);
+
+        stage.setTitle("Game");
         stage.setScene(scene);
+
         GameLoop timer = new GameLoop();
         GameService.setUp(stage, root);
+
         stage.show();
         timer.start();
     }
