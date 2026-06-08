@@ -44,7 +44,10 @@ public class PlatformsGenerator {
         }
 
         if(!toRemove.isEmpty()){
-            for (Platform platform : toRemove) activePlatforms.remove(platform);
+            for (Platform platform : toRemove) {
+                activePlatforms.remove(platform);
+                GameService.getRoot().getChildren().remove(platform.getNode());
+            }
         }
     }
 }

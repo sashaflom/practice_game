@@ -35,7 +35,7 @@ public class Platform {
         height = image.getHeight();
 
         tileContainer = new HBox();
-        tileContainer.setLayoutX(x + image.getWidth());
+        tileContainer.setLayoutX(x);
         tileContainer.setLayoutY(y);
         tileContainer.setSpacing(SPACING);
 
