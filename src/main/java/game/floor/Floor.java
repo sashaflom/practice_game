@@ -45,8 +45,16 @@ public class Floor {
         return tileContainer;
     }
 
+    public double getGroundY() {
+        return y;
+    }
+
     public void update(double time) {
-        double movement = speed * time;
+        update(time, 1.0);
+    }
+
+    public void update(double time, double speedMultiplier) {
+        double movement = speed * speedMultiplier * time;
 
         tileContainer.setLayoutX(tileContainer.getLayoutX() - movement);
 
