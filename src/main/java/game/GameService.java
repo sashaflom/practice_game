@@ -22,6 +22,10 @@ public class GameService {
         root.getChildren().add(background.getImageView());
     }
 
+    public static void moveBackground(double time){
+        background.move(time);
+    }
+
     public static Stage getCurrentStage() {
         return currentStage;
     }

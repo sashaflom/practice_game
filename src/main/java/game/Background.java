@@ -17,12 +17,20 @@ public class Background {
         y = 0;
         x1 = 0;
         x2 = width;
+        speed = 50.0;
         image = new Image(getClass().getResourceAsStream(path));
         imageView = new ImageView(image);
         imageView.setX(0);
         imageView.setY(0);
         imageView.setFitWidth(width);
         imageView.setFitHeight(height);
+    }
+
+    public void move(double time){
+        double movement = speed * time;
+        x1 -= movement;
+        if(x1 <= -width) x1 = width;
+        imageView.setX(x1);
     }
 
     public Image getImage() {
