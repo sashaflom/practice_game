@@ -1,6 +1,7 @@
 package game;
 
 import game.floor.Floor;
+import game.platform.Platform;
 import game.platform.PlatformsGenerator;
 import javafx.scene.Group;
 import javafx.stage.Stage;
@@ -28,8 +29,11 @@ public class GameService {
         floor = new Floor("/images/floor_tile_crop.png", 1000, 600);
         root.getChildren().add(floor.getNode());
         platformsGenerator = new PlatformsGenerator();
+        /*
         platformsGenerator.generatePlatform();
         platformsGenerator.generatePlatform();
+
+         */
     }
 
     public static void moveBackground(double time) {
@@ -66,5 +70,13 @@ public class GameService {
 
     public static void movePlatform(double time) {
         platformsGenerator.movePlatform(time);
+    }
+
+    public static boolean checkForNewPlatform() {
+        return platformsGenerator.checkForNewPlatform();
+    }
+
+    public static void generatePlatform() {
+        platformsGenerator.generatePlatform();
     }
 }

@@ -1,6 +1,7 @@
 package game.platform;
 
 import game.GameService;
+import javafx.util.converter.FloatStringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class PlatformsGenerator {
     public void generatePlatform(){
         int blockAmount = random.nextInt(5) + 1;
         double y = minHeight + random.nextDouble() * (maxHeight - minHeight);
-        Platform platform = new Platform("/images/floor_tile_crop.png", 600, y, blockAmount, 50);
+        Platform platform = new Platform("/images/floor_tile_crop.png", 1000, y, blockAmount, 50);
 
         GameService.getRoot().getChildren().add(platform.getNode());
         activePlatforms.add(platform);
@@ -49,5 +50,14 @@ public class PlatformsGenerator {
                 GameService.getRoot().getChildren().remove(platform.getNode());
             }
         }
+    }
+
+    public boolean checkForNewPlatform() {
+        if(activePlatforms.isEmpty()) return true;
+        Platform lastAdded = activePlatforms.get(activePlatforms.size() - 1);
+        double x = lastAdded.getX();
+        double width = lastAdded.getWidth();
+        if(x + width + 100 <= 1000) return true;
+        return false;
     }
 }
