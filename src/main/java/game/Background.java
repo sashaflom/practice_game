@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 public class Background {
 
     private Image image;
-    private ImageView imageView;
+    private ImageView imageView1, imageView2;
     private double x1, x2;
     private double y;
     private double width, height, speed;
@@ -19,18 +19,26 @@ public class Background {
         x2 = width;
         speed = 50.0;
         image = new Image(getClass().getResourceAsStream(path));
-        imageView = new ImageView(image);
-        imageView.setX(0);
-        imageView.setY(0);
-        imageView.setFitWidth(width);
-        imageView.setFitHeight(height);
+        imageView1 = new ImageView(image);
+        imageView1.setX(0);
+        imageView1.setY(0);
+        imageView1.setFitWidth(width);
+        imageView1.setFitHeight(height);
+        imageView2 = new ImageView(image);
+        imageView2.setX(width);
+        imageView2.setY(0);
+        imageView2.setFitWidth(width);
+        imageView2.setFitHeight(height);
     }
 
     public void move(double time){
         double movement = speed * time;
         x1 -= movement;
-        if(x1 <= -width) x1 = width;
-        imageView.setX(x1);
+        x2 -= movement;
+        if(x1 <= -width) x1 = x2 + width;
+        if(x2 <= -width) x2 = x1 + width;
+        imageView1.setX(x1);
+        imageView2.setX(x2);
     }
 
     public Image getImage() {
@@ -89,11 +97,19 @@ public class Background {
         this.speed = speed;
     }
 
-    public ImageView getImageView() {
-        return imageView;
+    public ImageView getImageView1() {
+        return imageView1;
     }
 
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
+    public void setImageView1(ImageView imageView1) {
+        this.imageView1 = imageView1;
+    }
+
+    public ImageView getImageView2() {
+        return imageView2;
+    }
+
+    public void setImageView2(ImageView imageView2) {
+        this.imageView2 = imageView2;
     }
 }

@@ -1,8 +1,6 @@
 package game;
 
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class GameService {
@@ -19,7 +17,8 @@ public class GameService {
         stage.setWidth(1000);
         stage.setHeight(600);
         background = new Background("/images/background.png", 1000, 600);
-        root.getChildren().add(background.getImageView());
+        root.getChildren().add(background.getImageView1());
+        root.getChildren().add(background.getImageView2());
     }
 
     public static void moveBackground(double time){
