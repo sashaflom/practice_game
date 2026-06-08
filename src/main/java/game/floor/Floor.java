@@ -6,8 +6,7 @@ import javafx.scene.layout.HBox;
 
 public class Floor {
     private Image image;
-    private HBox hBox;
-
+    private HBox tileContainer;
     private double x1, x2;
     private double y;
 
@@ -16,6 +15,7 @@ public class Floor {
     public Floor(String path, double screenWidth, double screenHeight) {
         width = screenWidth;
         height = screenHeight;
+        speed = 50;
 
         image = new Image(getClass().getResourceAsStream(path));
 
@@ -24,22 +24,36 @@ public class Floor {
 
         y = (screenHeight - image.getHeight());
 
-        this.hBox = new HBox();
-        hBox.setSpacing(-3);
+        this.tileContainer = new HBox();
+        tileContainer.setSpacing(-3);
 
-        hBox.setLayoutX(0);
-        hBox.setLayoutY(this.y);
+        tileContainer.setLayoutX(0);
+        tileContainer.setLayoutY(this.y);
 
-        hBox.setPrefWidth(width);
+        tileContainer.setPrefWidth(width);
 
-        int tilesCount = (int) Math.ceil(screenWidth / image.getWidth()) + 1;
+        int hiddenTilesCount = 3;
+
+        int tilesCount = (int) Math.ceil(screenWidth / image.getWidth()) + hiddenTilesCount;
 
         for (int i = 0; i < tilesCount; i++) {
-            hBox.getChildren().add(new ImageView(image));
+            tileContainer.getChildren().add(new ImageView(image));
         }
     }
 
-    public HBox gethBox() {
-        return hBox;
+    public HBox getNode() {
+        return tileContainer;
+    }
+
+    public void update(double time) {
+        double movement = speed * time;
+
+        tileContainer.setLayoutX(tileContainer.getLayoutX() - movement);
+
+        double effectiveWidth = image.getWidth() + tileContainer.getSpacing();
+
+        if (tileContainer.getLayoutX() <= -effectiveWidth) {
+            tileContainer.setLayoutX(tileContainer.getLayoutX() + effectiveWidth);
+        }
     }
 }

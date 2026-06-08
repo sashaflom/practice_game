@@ -13,7 +13,7 @@ public class GameService {
     private static GameLoop timer;
 
 
-    public static void setUp(Stage stage, Group group){
+    public static void setUp(Stage stage, Group group) {
         currentStage = stage;
         root = group;
 //        stage.setWidth(1000);
@@ -24,11 +24,15 @@ public class GameService {
         root.getChildren().add(background.getImageView2());
 
         floor = new Floor("/images/floor_tile_crop.png", 1000, 600);
-        root.getChildren().add(floor.gethBox());
+        root.getChildren().add(floor.getNode());
     }
 
-    public static void moveBackground(double time){
+    public static void moveBackground(double time) {
         background.move(time);
+    }
+
+    public static void moveFloor(double time) {
+        floor.update(time);
     }
 
     public static Stage getCurrentStage() {
