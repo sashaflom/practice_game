@@ -16,9 +16,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Group root = new Group();
-        Scene scene = new Scene(root, 1000, 600);
+        Scene scene = new Scene(root, GameService.getScreenWidth(), GameService.getScreenHeight());
 
-        stage.setTitle("Game");
+        stage.setTitle("Jungle Dash: Kong's Record");
         stage.setScene(scene);
 
         GameLoop timer = new GameLoop();

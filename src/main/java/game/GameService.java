@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 public class GameService {
 
+    private static double screenWidth = 1000;
+    private static double screenHeight = 600;
     private static Stage currentStage;
     private static Group root;
     private static Background background;
@@ -19,21 +21,14 @@ public class GameService {
     public static void setUp(Stage stage, Group group) {
         currentStage = stage;
         root = group;
-//        stage.setWidth(1000);
-//        stage.setHeight(600);
 
-        background = new Background("/images/background.png", 1000, 600);
+        background = new Background("/images/background.png", screenWidth, screenHeight);
         root.getChildren().add(background.getImageView1());
         root.getChildren().add(background.getImageView2());
 
-        floor = new Floor("/images/floor_tile_crop.png", 1000, 600);
+        floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight);
         root.getChildren().add(floor.getNode());
         platformsGenerator = new PlatformsGenerator();
-        /*
-        platformsGenerator.generatePlatform();
-        platformsGenerator.generatePlatform();
-
-         */
     }
 
     public static void moveBackground(double time) {
@@ -66,6 +61,14 @@ public class GameService {
 
     public static void setBackground(Background background) {
         GameService.background = background;
+    }
+
+    public static double getScreenWidth() {
+        return screenWidth;
+    }
+
+    public static double getScreenHeight() {
+        return screenHeight;
     }
 
     public static void movePlatform(double time) {
