@@ -34,6 +34,7 @@ public class PlatformsGenerator {
         } else{
             Platform lastAdded = getLastAddedPlatform();
             double min = lastAdded.getY() - monkeyJump;
+            if(min < minY) min = minY;
             y = min + random.nextDouble() * (maxY - min);
         }
         Platform platform = new Platform("/images/floor_tile_crop.png", GameService.getScreenWidth(), y, blockAmount, 50);
