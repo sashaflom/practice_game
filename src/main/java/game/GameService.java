@@ -30,7 +30,7 @@ public class GameService {
         floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight);
         root.getChildren().add(floor.getNode());
         fieldHeight = screenHeight - floor.getHeight();
-        platformsGenerator = new PlatformsGenerator(50, 50);
+        platformsGenerator = new PlatformsGenerator(50, 150);
     }
 
     public static void moveBackground(double time) {

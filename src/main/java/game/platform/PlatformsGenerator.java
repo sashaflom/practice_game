@@ -12,8 +12,8 @@ public class PlatformsGenerator {
     private Random random;
     private double monkeyHeight;
     private double monkeyJump;
-    private double minHeight;
-    private double maxHeight;
+    private double minY;
+    private double maxY;
     private final int maxBlocksAmount = 7;
     private final double widthBetweenPlatforms = 100;
 
@@ -22,13 +22,20 @@ public class PlatformsGenerator {
         random = new Random();
         this.monkeyHeight = monkeyHeight;
         this.monkeyJump = monkeyJump;
-        minHeight = monkeyHeight;
-        maxHeight = GameService.getFieldHeight() - monkeyHeight - GameService.getFloor().getHeight();
+        minY = monkeyHeight;
+        maxY = GameService.getFieldHeight() - monkeyJump;
     }
 
     public void generatePlatform(){
         int blockAmount = random.nextInt(maxBlocksAmount - 1) + 1;
-        double y = minHeight + random.nextDouble() * (maxHeight - minHeight);
+        double y;
+        if (activePlatforms.isEmpty()){
+            y = maxY;
+        } else{
+            Platform lastAdded = getLastAddedPlatform();
+            double min = lastAdded.getY() - monkeyJump;
+            y = min + random.nextDouble() * (maxY - min);
+        }
         Platform platform = new Platform("/images/floor_tile_crop.png", GameService.getScreenWidth(), y, blockAmount, 50);
 
         GameService.getRoot().getChildren().add(platform.getNode());
@@ -60,12 +67,14 @@ public class PlatformsGenerator {
         }
     }
 
+    public Platform getLastAddedPlatform(){
+        return activePlatforms.get(activePlatforms.size() - 1);
+    }
+
     public boolean checkForNewPlatform() {
         if(activePlatforms.isEmpty()) return true;
-        Platform lastAdded = activePlatforms.get(activePlatforms.size() - 1);
-        double x = lastAdded.getX();
-        double width = lastAdded.getWidth();
-        if(x + width + widthBetweenPlatforms <= GameService.getScreenWidth()) return true;
+        Platform lastAdded = getLastAddedPlatform();
+        if(lastAdded.getX() + lastAdded.getWidth() + widthBetweenPlatforms <= GameService.getScreenWidth()) return true;
         return false;
     }
 }
