@@ -10,6 +10,7 @@ public class GameService {
 
     private static double screenWidth = 1000;
     private static double screenHeight = 600;
+    private static double fieldHeight;
     private static Stage currentStage;
     private static Group root;
     private static Background background;
@@ -28,7 +29,8 @@ public class GameService {
 
         floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight);
         root.getChildren().add(floor.getNode());
-        platformsGenerator = new PlatformsGenerator();
+        fieldHeight = screenHeight - floor.getHeight();
+        platformsGenerator = new PlatformsGenerator(50, 50);
     }
 
     public static void moveBackground(double time) {
@@ -69,6 +71,14 @@ public class GameService {
 
     public static double getScreenHeight() {
         return screenHeight;
+    }
+
+    public static double getFieldHeight() {
+        return fieldHeight;
+    }
+
+    public static Floor getFloor() {
+        return floor;
     }
 
     public static void movePlatform(double time) {

@@ -1,7 +1,6 @@
 package game.platform;
 
 import game.GameService;
-import javafx.util.converter.FloatStringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +9,25 @@ import java.util.Random;
 public class PlatformsGenerator {
 
     private List<Platform> activePlatforms;
-    private Random random = new Random();
-    private final double minHeight = 200;
-    private final double maxHeight = 500;
+    private Random random;
+    private double monkeyHeight;
+    private double monkeyJump;
+    private double minHeight;
+    private double maxHeight;
+    private final int maxBlocksAmount = 7;
+    private final double widthBetweenPlatforms = 100;
 
-    public PlatformsGenerator(){
+    public PlatformsGenerator(double monkeyHeight, double monkeyJump){
         activePlatforms = new ArrayList<>();
+        random = new Random();
+        this.monkeyHeight = monkeyHeight;
+        this.monkeyJump = monkeyJump;
+        minHeight = monkeyHeight;
+        maxHeight = GameService.getFieldHeight() - monkeyHeight - GameService.getFloor().getHeight();
     }
 
     public void generatePlatform(){
-        int blockAmount = random.nextInt(5) + 1;
+        int blockAmount = random.nextInt(maxBlocksAmount - 1) + 1;
         double y = minHeight + random.nextDouble() * (maxHeight - minHeight);
         Platform platform = new Platform("/images/floor_tile_crop.png", GameService.getScreenWidth(), y, blockAmount, 50);
 
@@ -57,7 +65,7 @@ public class PlatformsGenerator {
         Platform lastAdded = activePlatforms.get(activePlatforms.size() - 1);
         double x = lastAdded.getX();
         double width = lastAdded.getWidth();
-        if(x + width + 100 <= GameService.getScreenWidth()) return true;
+        if(x + width + widthBetweenPlatforms <= GameService.getScreenWidth()) return true;
         return false;
     }
 }
