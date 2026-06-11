@@ -15,6 +15,7 @@ public class Platform {
     private double x, y, width, height, speed;
     private int blockAmount;
     private Image image;
+    private static final double IMAGE_SIZE = 70;
 
     /*h-box nesting tiles*/
     private final HBox tileContainer;
@@ -31,8 +32,8 @@ public class Platform {
 
         image = new Image(getClass().getResourceAsStream(path));
 
-        width = image.getWidth() * blockAmount;
-        height = image.getHeight();
+        width = IMAGE_SIZE * blockAmount;
+        height = IMAGE_SIZE;
 
         tileContainer = new HBox();
         tileContainer.setLayoutX(x);
@@ -40,7 +41,10 @@ public class Platform {
         tileContainer.setSpacing(SPACING);
 
         for (int i = 0; i < blockAmount; i++){
-            tileContainer.getChildren().add(new ImageView(image));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(IMAGE_SIZE);
+            imageView.setFitHeight(IMAGE_SIZE);
+            tileContainer.getChildren().add(imageView);
         }
     }
 

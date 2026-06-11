@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 
 public class Floor {
     private Image image;
+    private static final double IMAGE_SIZE = 80;
     private HBox tileContainer;
     private double x1, x2;
     private double y;
@@ -23,7 +24,7 @@ public class Floor {
         x1 = 0;
         x2 = width;
 
-        height = image.getHeight();
+        height = IMAGE_SIZE;
         y = (screenHeight - height);
 
         this.tileContainer = new HBox();
@@ -36,10 +37,13 @@ public class Floor {
 
         int hiddenTilesCount = 3;
 
-        int tilesCount = (int) Math.ceil(screenWidth / image.getWidth()) + hiddenTilesCount;
+        int tilesCount = (int) Math.ceil(screenWidth / IMAGE_SIZE) + hiddenTilesCount;
 
         for (int i = 0; i < tilesCount; i++) {
-            tileContainer.getChildren().add(new ImageView(image));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(IMAGE_SIZE);
+            imageView.setFitHeight(IMAGE_SIZE);
+            tileContainer.getChildren().add(imageView);
         }
     }
 
@@ -52,7 +56,7 @@ public class Floor {
 
         tileContainer.setLayoutX(tileContainer.getLayoutX() - movement);
 
-        double effectiveWidth = image.getWidth() + SPACING;
+        double effectiveWidth = IMAGE_SIZE + SPACING;
 
         if (tileContainer.getLayoutX() <= -effectiveWidth) {
             tileContainer.setLayoutX(tileContainer.getLayoutX() + effectiveWidth);
