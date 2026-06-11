@@ -1,5 +1,6 @@
 package game;
 
+import game.bonus.BananaGenerator;
 import game.floor.Floor;
 import game.platform.Platform;
 import game.platform.PlatformsGenerator;
@@ -91,5 +92,9 @@ public class GameService {
 
     public static void generatePlatform() {
         platformsGenerator.generatePlatform();
+    }
+
+    public static void moveBanana(double time) {
+        BananaGenerator.moveBananas(time);
     }
 }

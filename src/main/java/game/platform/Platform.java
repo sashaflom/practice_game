@@ -1,5 +1,8 @@
 package game.platform;
 
+import game.GameService;
+import game.bonus.Banana;
+import game.bonus.BananaGenerator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -40,11 +43,15 @@ public class Platform {
         tileContainer.setLayoutY(y);
         tileContainer.setSpacing(SPACING);
 
+        double bananaX = x;
+
         for (int i = 0; i < blockAmount; i++){
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(IMAGE_SIZE);
             imageView.setFitHeight(IMAGE_SIZE);
             tileContainer.getChildren().add(imageView);
+            BananaGenerator.generateBanana(bananaX + 10, y-40);
+            bananaX += IMAGE_SIZE;
         }
     }
 

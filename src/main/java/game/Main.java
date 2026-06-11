@@ -23,7 +23,6 @@ public class Main extends Application {
 
         GameLoop timer = new GameLoop();
         GameService.setUp(stage, root);
-
         stage.show();
         timer.start();
     }
