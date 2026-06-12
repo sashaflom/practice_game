@@ -5,6 +5,14 @@ import game.floor.Floor;
 import game.platform.Platform;
 import game.platform.PlatformsGenerator;
 import javafx.scene.Group;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameService {
@@ -28,7 +36,6 @@ public class GameService {
         currentStage = stage;
         root = group;
         currentSpeed = START_SPEED;
-        scoreManager = new ScoreManager();
 
         background = new Background("/images/background.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(background.getImageView1());
@@ -38,6 +45,26 @@ public class GameService {
         root.getChildren().add(floor.getNode());
         fieldHeight = screenHeight - floor.getHeight();
         platformsGenerator = new PlatformsGenerator(50, 150);
+        setUpDistance();
+    }
+
+    private static void setUpDistance() {
+        Text score = new Text("Дистанція: 0 м");
+        score.setLayoutX(20);
+        score.setLayoutY(30);
+        score.setFont(Font.font("Arial Black", FontWeight.BOLD, 20));
+        score.setFill(Color.web("#FFDE4D"));
+        score.setStroke(Color.web("#3D2412"));
+        score.setStrokeWidth(1.5);
+        DropShadow shadow = new DropShadow();
+        shadow.setRadius(4.0);
+        shadow.setOffsetX(3.0);
+        shadow.setOffsetY(3.0);
+        shadow.setColor(Color.web("#221207", 0.8)); // Тінь з прозорістю 80%
+
+        score.setEffect(shadow);
+        root.getChildren().add(score);
+        scoreManager = new ScoreManager(score);
     }
 
     public static void moveBackground(double time) {

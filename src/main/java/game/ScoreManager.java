@@ -1,14 +1,18 @@
 package game;
 
+import javafx.scene.text.Text;
+
 public class ScoreManager {
 
     private double totalDistance;
     private int totalBananas;
     private static final int SPEED_MARK = 50;
     private int lastMark;
+    private Text score;
 
 
-    public ScoreManager(){
+    public ScoreManager(Text score){
+        this.score = score;
         totalDistance = 0.0;
         totalBananas = 0;
         lastMark = 0;
@@ -16,6 +20,7 @@ public class ScoreManager {
 
     public void updateDistance(double time, double currentSpeed){
         totalDistance += currentSpeed*time;
+        score.setText("Дистанція: " + getDistanceInMeters() + " м");
         // System.out.println(getDistanceInMeters());
     }
 
