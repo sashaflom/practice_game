@@ -52,6 +52,7 @@ public class Platform {
         }else{
             bananaY = y - 100;
         }
+        if(bananaY < 0) bananaY = 0;
 
         for (int i = 0; i < blockAmount; i++){
             ImageView imageView = new ImageView(image);
