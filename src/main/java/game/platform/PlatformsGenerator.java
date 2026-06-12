@@ -1,6 +1,7 @@
 package game.platform;
 
 import game.GameService;
+import game.bonus.Banana;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,5 +78,9 @@ public class PlatformsGenerator {
         Platform lastAdded = getLastAddedPlatform();
         if(lastAdded.getX() + lastAdded.getWidth() + widthBetweenPlatforms <= GameService.getScreenWidth()) return true;
         return false;
+    }
+
+    public void changeSpeed(double newSpeed){
+        if (!activePlatforms.isEmpty()) for (Platform platform : activePlatforms) platform.setSpeed(newSpeed);
     }
 }

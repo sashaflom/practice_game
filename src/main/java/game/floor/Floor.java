@@ -66,4 +66,8 @@ public class Floor {
     public double getHeight() {
         return height;
     }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
 }

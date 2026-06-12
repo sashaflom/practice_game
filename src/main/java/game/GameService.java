@@ -18,7 +18,8 @@ public class GameService {
     private static Floor floor;
     private static GameLoop timer;
     private static PlatformsGenerator platformsGenerator;
-    private static final double START_SPEED = 50;
+    private static final double START_SPEED = 100;
+    private static final double SPEED_UP = 10;
     private static double currentSpeed;
     private static ScoreManager scoreManager;
 
@@ -109,5 +110,15 @@ public class GameService {
 
     public static void updateDistance(double time) {
         scoreManager.updateDistance(time, currentSpeed);
+    }
+
+    public static void changeSpeed() {
+        if(scoreManager.checkForReachingMark()){
+            currentSpeed += SPEED_UP;
+            BananaGenerator.changeSpeed(currentSpeed);
+            platformsGenerator.changeSpeed(currentSpeed);
+            floor.setSpeed(currentSpeed);
+            background.setSpeed(currentSpeed);
+        }
     }
 }

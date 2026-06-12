@@ -37,4 +37,8 @@ public class BananaGenerator {
             }
         }
     }
+
+    public static void changeSpeed(double newSpeed){
+        if(!activeBananas.isEmpty()) for (Banana banana : activeBananas) banana.setSpeed(newSpeed);
+    }
 }
