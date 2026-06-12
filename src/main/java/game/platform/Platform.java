@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.util.List;
+import java.util.Random;
 
 public class Platform {
 
@@ -44,13 +45,20 @@ public class Platform {
         tileContainer.setSpacing(SPACING);
 
         double bananaX = x;
+        int height = new Random().nextInt(2);
+        double bananaY;
+        if(height == 0){
+            bananaY = y - 40;
+        }else{
+            bananaY = y - 100;
+        }
 
         for (int i = 0; i < blockAmount; i++){
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(IMAGE_SIZE);
             imageView.setFitHeight(IMAGE_SIZE);
             tileContainer.getChildren().add(imageView);
-            BananaGenerator.generateBanana(bananaX + 10, y-40);
+            BananaGenerator.generateBanana(bananaX + 10, bananaY);
             bananaX += IMAGE_SIZE;
         }
     }
