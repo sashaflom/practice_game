@@ -20,12 +20,14 @@ public class GameService {
     private static PlatformsGenerator platformsGenerator;
     private static final double START_SPEED = 50;
     private static double currentSpeed;
+    private static ScoreManager scoreManager;
 
 
     public static void setUp(Stage stage, Group group) {
         currentStage = stage;
         root = group;
         currentSpeed = START_SPEED;
+        scoreManager = new ScoreManager();
 
         background = new Background("/images/background.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(background.getImageView1());
@@ -103,5 +105,9 @@ public class GameService {
 
     public static double getCurrentSpeed() {
         return currentSpeed;
+    }
+
+    public static void updateDistance(double time) {
+        scoreManager.updateDistance(time, currentSpeed);
     }
 }
