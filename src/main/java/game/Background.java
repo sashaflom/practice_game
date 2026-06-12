@@ -11,13 +11,13 @@ public class Background {
     private double y;
     private double width, height, speed;
 
-    public Background(String path, double screenWidth, double screenHeight) {
+    public Background(String path, double screenWidth, double screenHeight, double speed) {
         width = screenWidth;
         height = screenHeight;
         y = 0;
         x1 = 0;
         x2 = width;
-        speed = 50.0;
+        this.speed = speed;
         image = new Image(getClass().getResourceAsStream(path));
         imageView1 = new ImageView(image);
         imageView1.setX(0);

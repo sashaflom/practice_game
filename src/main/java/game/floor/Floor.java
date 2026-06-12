@@ -15,9 +15,9 @@ public class Floor {
 
     private static final double SPACING = -3;
 
-    public Floor(String path, double screenWidth, double screenHeight) {
+    public Floor(String path, double screenWidth, double screenHeight, double speed) {
         width = screenWidth;
-        speed = 50;
+        this.speed = speed;
 
         image = new Image(getClass().getResourceAsStream(path));
 

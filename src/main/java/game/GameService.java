@@ -18,17 +18,20 @@ public class GameService {
     private static Floor floor;
     private static GameLoop timer;
     private static PlatformsGenerator platformsGenerator;
+    private static final double START_SPEED = 50;
+    private static double currentSpeed;
 
 
     public static void setUp(Stage stage, Group group) {
         currentStage = stage;
         root = group;
+        currentSpeed = START_SPEED;
 
-        background = new Background("/images/background.png", screenWidth, screenHeight);
+        background = new Background("/images/background.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(background.getImageView1());
         root.getChildren().add(background.getImageView2());
 
-        floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight);
+        floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(floor.getNode());
         fieldHeight = screenHeight - floor.getHeight();
         platformsGenerator = new PlatformsGenerator(50, 150);
@@ -96,5 +99,9 @@ public class GameService {
 
     public static void moveBanana(double time) {
         BananaGenerator.moveBananas(time);
+    }
+
+    public static double getCurrentSpeed() {
+        return currentSpeed;
     }
 }
