@@ -9,10 +9,12 @@ public class ScoreManager {
     private static final int SPEED_MARK = 50;
     private int lastMark;
     private Text score;
+    private Text bananas;
 
 
-    public ScoreManager(Text score){
+    public ScoreManager(Text score, Text bananas){
         this.score = score;
+        this.bananas = bananas;
         totalDistance = 0.0;
         totalBananas = 0;
         lastMark = 0;

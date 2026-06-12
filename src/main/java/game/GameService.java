@@ -6,6 +6,8 @@ import game.platform.Platform;
 import game.platform.PlatformsGenerator;
 import javafx.scene.Group;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -45,10 +47,36 @@ public class GameService {
         root.getChildren().add(floor.getNode());
         fieldHeight = screenHeight - floor.getHeight();
         platformsGenerator = new PlatformsGenerator(50, 150);
-        setUpDistance();
+        scoreManager = new ScoreManager(setUpDistance(), setUpBananas());
     }
 
-    private static void setUpDistance() {
+    private static Text setUpBananas() {
+        Image image = new Image(GameService.class.getResourceAsStream("/images/banana.png"));
+        ImageView imageView = new ImageView(image);
+        imageView.setLayoutX(20);
+        imageView.setLayoutY(35);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
+        root.getChildren().add(imageView);
+        Text bananas = new Text("0");
+        bananas.setLayoutX(55);
+        bananas.setLayoutY(58);
+        bananas.setFont(Font.font("Arial Black", FontWeight.BOLD, 20));
+        bananas.setFill(Color.web("#FFDE4D"));
+        bananas.setStroke(Color.web("#3D2412"));
+        bananas.setStrokeWidth(1.5);
+        DropShadow shadow = new DropShadow();
+        shadow.setRadius(4.0);
+        shadow.setOffsetX(3.0);
+        shadow.setOffsetY(3.0);
+        shadow.setColor(Color.web("#221207", 0.8)); // Тінь з прозорістю 80%
+
+        bananas.setEffect(shadow);
+        root.getChildren().add(bananas);
+        return bananas;
+    }
+
+    private static Text setUpDistance() {
         Text score = new Text("Дистанція: 0 м");
         score.setLayoutX(20);
         score.setLayoutY(30);
@@ -64,7 +92,7 @@ public class GameService {
 
         score.setEffect(shadow);
         root.getChildren().add(score);
-        scoreManager = new ScoreManager(score);
+        return score;
     }
 
     public static void moveBackground(double time) {

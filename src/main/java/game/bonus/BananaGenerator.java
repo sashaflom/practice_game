@@ -1,6 +1,7 @@
 package game.bonus;
 
 import game.GameService;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
