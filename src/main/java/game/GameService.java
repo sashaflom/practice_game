@@ -1,10 +1,13 @@
 package game;
 
 import game.bonus.BananaGenerator;
+import game.character.Monkey;
 import game.floor.Floor;
 import game.platform.Platform;
 import game.platform.PlatformsGenerator;
 import javafx.scene.Group;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,7 +29,9 @@ public class GameService {
     private static Group root;
     private static Background background;
     private static Floor floor;
+    private static Monkey monkey;
     private static GameLoop timer;
+    private static boolean spacePressed;
     private static PlatformsGenerator platformsGenerator;
     private static final double START_SPEED = 100;
     private static final double SPEED_UP = 10;
@@ -46,6 +51,10 @@ public class GameService {
         floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(floor.getNode());
         fieldHeight = screenHeight - floor.getHeight();
+        monkey = new Monkey(floor.getGroundY());
+        root.getChildren().add(monkey.getNode());
+
+        setUpControls();
         platformsGenerator = new PlatformsGenerator(50, 150);
         scoreManager = new ScoreManager(setUpDistance(), setUpBananas());
     }
@@ -93,14 +102,46 @@ public class GameService {
         score.setEffect(shadow);
         root.getChildren().add(score);
         return score;
+
+        monkey = new Monkey(floor.getGroundY());
+        root.getChildren().add(monkey.getNode());
+
+        setUpControls();
     }
 
     public static void moveBackground(double time) {
-        background.move(time);
+        background.move(time, monkey.getWorldSpeedMultiplier());
     }
 
     public static void moveFloor(double time) {
-        floor.update(time);
+        floor.update(time, monkey.getWorldSpeedMultiplier());
+    }
+
+    public static void updateMonkey(double time) {
+        monkey.update(time);
+    }
+
+    private static void setUpControls() {
+        currentStage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.SPACE) {
+                if (!spacePressed) {
+                    monkey.jump();
+                }
+                spacePressed = true;
+                monkey.startGlide();
+            }
+
+            if (event.getCode() == KeyCode.V || event.getCode() == KeyCode.M || event.getCode() == KeyCode.W) {
+                monkey.dash();
+            }
+        });
+
+        currentStage.getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            if (event.getCode() == KeyCode.SPACE) {
+                spacePressed = false;
+                monkey.stopGlide();
+            }
+        });
     }
 
     public static Stage getCurrentStage() {
@@ -125,6 +166,10 @@ public class GameService {
 
     public static void setBackground(Background background) {
         GameService.background = background;
+    }
+
+    public static Monkey getMonkey() {
+        return monkey;
     }
 
     public static double getScreenWidth() {

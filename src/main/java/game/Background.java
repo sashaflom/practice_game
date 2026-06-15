@@ -32,7 +32,11 @@ public class Background {
     }
 
     public void move(double time){
-        double movement = speed * time;
+        move(time, 1.0);
+    }
+
+    public void move(double time, double speedMultiplier){
+        double movement = speed * speedMultiplier * time;
         x1 -= movement;
         x2 -= movement;
         if(x1 <= -width) x1 = x2 + width;
