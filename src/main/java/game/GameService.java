@@ -238,7 +238,7 @@ public class GameService {
     }
 
     public static void collectBananas() {
-        int collectedBananas = BananaGenerator.collectBananas(monkey);
+        int collectedBananas = BananaGenerator.collectBananas(monkey, scoreManager.isMagnet());
         if (collectedBananas > 0) {
             scoreManager.addBananas(collectedBananas);
         }
@@ -246,12 +246,9 @@ public class GameService {
 
     public static void collectMagnet() {
         int collectedMagnet = MagnetGenerator.collectMagnet(monkey);
-        /*
         if (collectedMagnet > 0) {
-            scoreManager.addBananas(collectedMagnet);
+            scoreManager.setMagnet(true);
         }
-
-         */
     }
 
     public static double getCurrentSpeed() {
@@ -294,5 +291,15 @@ public class GameService {
         platformsGenerator.changeSpeed(currentSpeed);
         floor.setSpeed(currentSpeed);
         background.setSpeed(currentSpeed);
+    }
+
+    public static void checkForMagnet() {
+        if(scoreManager.checkForMagnet()){
+            timer.magnetTrue();
+        }
+    }
+
+    public static void turnOffMagnet(){
+        scoreManager.setMagnet(false);
     }
 }

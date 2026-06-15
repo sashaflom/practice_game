@@ -250,4 +250,8 @@ public class Monkey {
         node.setFitWidth(FLYING_SIZE);
         node.setFitHeight(FLYING_SIZE);
     }
+
+    public double getX() {
+        return x;
+    }
 }

@@ -15,7 +15,7 @@ public class MagnetGenerator {
 
     public static void generateMagnet(double x, double y){
         if(!activeMagnets.isEmpty()) return;
-        int generate = random.nextInt(2);
+        int generate = random.nextInt(10);
         if(generate != 1) return;
         Magnet magnet = new Magnet("/images/magnet.png", x, y, SIZE, GameService.getCurrentSpeed());
         GameService.getRoot().getChildren().add(magnet.getImageView());
@@ -62,5 +62,6 @@ public class MagnetGenerator {
     public static void changeSpeed(double newSpeed){
         if(!activeMagnets.isEmpty()) for (Magnet magnet : activeMagnets) magnet.setSpeed(newSpeed);
     }
+
 
 }

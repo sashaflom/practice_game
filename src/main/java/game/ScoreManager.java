@@ -13,6 +13,7 @@ public class ScoreManager {
     private Text acceleration;
     private static final int ACCELERATION_AMOUNT = 20;
     private int bananasForAcceleration;
+    private boolean isMagnet = false;
 
 
     public ScoreManager(Text score, Text bananas, Text acceleration){
@@ -61,5 +62,17 @@ public class ScoreManager {
     public void comeBackFromAcceleration() {
         bananasForAcceleration = ACCELERATION_AMOUNT;
         acceleration.setText("до прискорення: " + bananasForAcceleration);
+    }
+
+    public void setMagnet(boolean set){
+        isMagnet = set;
+    }
+
+    public boolean checkForMagnet() {
+        return isMagnet;
+    }
+
+    public boolean isMagnet() {
+        return isMagnet;
     }
 }

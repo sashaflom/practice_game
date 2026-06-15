@@ -7,6 +7,9 @@ public class GameLoop extends AnimationTimer {
     private long accelerationStart = 0;
     private static final long ACCELERATION_DURATION = 5000000000L;
     private boolean acceleration = false;
+    private boolean magnet = false;
+    private long magnetStart = 0;
+    private static final long MAGNET_DURATION = 5000000000L;
 
     @Override
     public void handle(long now) {
@@ -31,6 +34,10 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void updateGameWithAcceleration(double time) {
+        if(lastUpdate - magnetStart >= MAGNET_DURATION) {
+            magnet = false;
+            GameService.turnOffMagnet();
+        }
         GameService.moveBackground(time);
         GameService.moveFloor(time);
         GameService.movePlatform(time);
@@ -40,9 +47,14 @@ public class GameLoop extends AnimationTimer {
         GameService.collectMagnet();
         GameService.updateDistance(time);
         if(GameService.checkForNewPlatform()) GameService.generatePlatform();
+        if(!magnet) GameService.checkForMagnet();
     }
 
     private void updateGame(double time) {
+        if(lastUpdate - magnetStart >= MAGNET_DURATION) {
+            magnet = false;
+            GameService.turnOffMagnet();
+        }
         GameService.updateMonkey(time);
         GameService.moveBackground(time);
         GameService.moveFloor(time);
@@ -56,10 +68,16 @@ public class GameLoop extends AnimationTimer {
         GameService.changeSpeed();
         if(GameService.checkForNewPlatform()) GameService.generatePlatform();
         GameService.checkForAcceleration();
+        if (!magnet) GameService.checkForMagnet();
     }
 
     public void accelerationTrue() {
         acceleration = true;
         accelerationStart = lastUpdate;
+    }
+
+    public void magnetTrue(){
+        magnet = true;
+        magnetStart = lastUpdate;
     }
 }
