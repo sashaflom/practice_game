@@ -17,7 +17,7 @@ public class MagnetGenerator {
     private static final double SIZE = 50;
 
     public static void generateMagnet(double x, double y){
-        if(!activeMagnets.isEmpty()) return;
+        if(!activeMagnets.isEmpty() || currentMagnet != null) return;
         int generate = random.nextInt(10);
         if(generate != 1) return;
         Magnet magnet = new Magnet("/images/magnet.png", x, y, SIZE, GameService.getCurrentSpeed());
@@ -78,5 +78,9 @@ public class MagnetGenerator {
 
     public static ImageView getCurrentMagnet() {
         return currentMagnet;
+    }
+
+    public static void setCurrentMagnet(ImageView currentMagnet) {
+        MagnetGenerator.currentMagnet = currentMagnet;
     }
 }

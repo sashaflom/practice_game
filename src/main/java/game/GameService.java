@@ -302,5 +302,6 @@ public class GameService {
     public static void turnOffMagnet(){
         scoreManager.setMagnet(false);
         root.getChildren().remove(MagnetGenerator.getCurrentMagnet());
+        MagnetGenerator.setCurrentMagnet(null);
     }
 }
