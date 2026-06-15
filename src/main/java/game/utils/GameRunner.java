@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class GameRunner {
     public static void run(Stage stage, Group root) {
         GameLoop timer = new GameLoop();
-        GameService.setUp(stage, root);
+        GameService.setUp(stage, root, timer);
         stage.show();
         timer.start();
     }
