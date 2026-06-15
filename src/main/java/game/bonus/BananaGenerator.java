@@ -49,7 +49,7 @@ public class BananaGenerator {
                 toRemove.add(banana);
             }
             if(isMagnet){
-                if(Math.abs(monkey.getX() - banana.getX()) <= 500){
+                if(Math.abs(monkey.getX() - banana.getX()) <= GameService.getScreenWidth() - 300){
                     collected++;
                     toRemove.add(banana);
                 }

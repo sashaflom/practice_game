@@ -2,6 +2,8 @@ package game.bonus;
 
 import game.GameService;
 import game.character.Monkey;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.Random;
 public class MagnetGenerator {
 
     private static List<Magnet> activeMagnets = new ArrayList<>();
+    private static ImageView currentMagnet = null;
     private static Random random = new Random();
     private static final double SIZE = 50;
 
@@ -47,6 +50,16 @@ public class MagnetGenerator {
         for (Magnet magnet : activeMagnets) {
             if (monkey.getNode().getBoundsInParent().intersects(magnet.getImageView().getBoundsInParent())) {
                 collected++;
+                ImageView collectedMagnet = new ImageView(magnet.getImage());
+                collectedMagnet.setLayoutX(300);
+                collectedMagnet.setLayoutY(10);
+                collectedMagnet.setFitWidth(SIZE);
+                collectedMagnet.setFitHeight(SIZE);
+                if(currentMagnet != null){
+                    GameService.getRoot().getChildren().remove(currentMagnet);
+                }
+                currentMagnet = collectedMagnet;
+                GameService.getRoot().getChildren().add(collectedMagnet);
                 toRemove.add(magnet);
             }
         }
@@ -63,5 +76,7 @@ public class MagnetGenerator {
         if(!activeMagnets.isEmpty()) for (Magnet magnet : activeMagnets) magnet.setSpeed(newSpeed);
     }
 
-
+    public static ImageView getCurrentMagnet() {
+        return currentMagnet;
+    }
 }
