@@ -39,4 +39,9 @@ public class ScoreManager {
         return false;
     }
 
+    public void addBananas(int amount) {
+        totalBananas += amount;
+        bananas.setText(String.valueOf(totalBananas));
+    }
+
 }

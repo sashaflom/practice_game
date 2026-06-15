@@ -126,6 +126,10 @@ public class GameService {
             if (event.getCode() == KeyCode.V || event.getCode() == KeyCode.M || event.getCode() == KeyCode.W) {
                 monkey.dash();
             }
+
+            if (event.getCode() == KeyCode.B) {
+                monkey.dropDown();
+            }
         });
 
         currentStage.getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
@@ -184,6 +188,10 @@ public class GameService {
         platformsGenerator.movePlatform(time);
     }
 
+    public static void checkPlatformCollisions() {
+        monkey.checkPlatformCollisions(platformsGenerator.getActivePlatforms());
+    }
+
     public static boolean checkForNewPlatform() {
         return platformsGenerator.checkForNewPlatform();
     }
@@ -194,6 +202,13 @@ public class GameService {
 
     public static void moveBanana(double time) {
         BananaGenerator.moveBananas(time);
+    }
+
+    public static void collectBananas() {
+        int collectedBananas = BananaGenerator.collectBananas(monkey);
+        if (collectedBananas > 0) {
+            scoreManager.addBananas(collectedBananas);
+        }
     }
 
     public static double getCurrentSpeed() {
