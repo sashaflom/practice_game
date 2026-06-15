@@ -1,0 +1,50 @@
+package game.obstacle;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class Barrel {
+
+    private final ImageView imageView;
+
+    private double x;
+    private double y;
+    private double size;
+    private double speed;
+
+    public Barrel(String path, double x, double y, double size, double speed) {
+        Image image = new Image(getClass().getResourceAsStream(path));
+
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speed = speed;
+
+        imageView = new ImageView(image);
+        imageView.setFitWidth(size);
+        imageView.setFitHeight(size);
+        imageView.setPreserveRatio(true);
+        imageView.setLayoutX(x);
+        imageView.setLayoutY(y);
+    }
+
+    public boolean update(double time) {
+        double movement = speed * time;
+        x -= movement;
+        imageView.setLayoutX(x);
+
+        return x > -size;
+    }
+
+    public boolean touches(javafx.scene.Node monkeyNode) {
+        return imageView.getBoundsInParent().intersects(monkeyNode.getBoundsInParent());
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+}

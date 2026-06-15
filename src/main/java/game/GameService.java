@@ -16,6 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import game.avalanche.BananaAvalanche;
+import game.obstacle.BarrelGenerator;
 
 public class GameService {
 
@@ -233,6 +234,7 @@ public class GameService {
             currentSpeed += SPEED_UP;
             BananaGenerator.changeSpeed(currentSpeed);
             platformsGenerator.changeSpeed(currentSpeed);
+            BarrelGenerator.changeSpeed(currentSpeed);
             floor.setSpeed(currentSpeed);
             background.setSpeed(currentSpeed);
         }
@@ -270,6 +272,16 @@ public class GameService {
 
     public static boolean isGameOver() {
         return gameOver;
+    }
+
+    public static void moveBarrels(double time) {
+        BarrelGenerator.moveBarrels(time);
+    }
+
+    public static void checkBarrelCollisions() {
+        if (BarrelGenerator.checkCollision(monkey)) {
+            gameOver();
+        }
     }
 
 }
