@@ -18,15 +18,26 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void updateGame(double time) {
+        if (GameService.isGameOver()) {
+            return;
+        }
+
         GameService.updateMonkey(time);
         GameService.moveBackground(time);
         GameService.moveFloor(time);
         GameService.movePlatform(time);
         GameService.checkPlatformCollisions();
+
+        GameService.updateAvalanche(time);
+        GameService.checkGameOver();
+
         GameService.moveBanana(time);
         GameService.collectBananas();
         GameService.updateDistance(time);
         GameService.changeSpeed();
-        if(GameService.checkForNewPlatform()) GameService.generatePlatform();
+
+        if (GameService.checkForNewPlatform()) {
+            GameService.generatePlatform();
+        }
     }
 }

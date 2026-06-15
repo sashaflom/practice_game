@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import game.avalanche.BananaAvalanche;
 
 public class GameService {
 
@@ -33,12 +34,17 @@ public class GameService {
     private static final double SPEED_UP = 10;
     private static double currentSpeed;
     private static ScoreManager scoreManager;
+    private static BananaAvalanche avalanche;
+    private static boolean gameOver = false;
+    private static Text gameOverText;
 
 
     public static void setUp(Stage stage, Group group) {
         currentStage = stage;
         root = group;
         currentSpeed = START_SPEED;
+        gameOver = false;
+        gameOverText = null;
 
         background = new Background("/images/background.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(background.getImageView1());
@@ -47,6 +53,9 @@ public class GameService {
         floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(floor.getNode());
         fieldHeight = screenHeight - floor.getHeight();
+
+        avalanche = new BananaAvalanche(floor.getY());
+        root.getChildren().add(avalanche.getNode());
 
         monkey = new Monkey(floor.getY());
         root.getChildren().add(monkey.getNode());
@@ -228,4 +237,39 @@ public class GameService {
             background.setSpeed(currentSpeed);
         }
     }
+
+    public static void updateAvalanche(double time) {
+        avalanche.update(time, monkey);
+    }
+
+    public static void checkGameOver() {
+        if (avalanche.touches(monkey)) {
+            gameOver();
+        }
+    }
+
+    private static void gameOver() {
+        if (gameOver) {
+            return;
+        }
+
+        gameOver = true;
+
+        gameOverText = new Text("GAME OVER");
+        gameOverText.setLayoutX(screenWidth / 2 - 140);
+        gameOverText.setLayoutY(screenHeight / 2);
+        gameOverText.setFont(Font.font("Arial Black", FontWeight.BOLD, 45));
+        gameOverText.setFill(Color.RED);
+        gameOverText.setStroke(Color.BLACK);
+        gameOverText.setStrokeWidth(2);
+
+        root.getChildren().add(gameOverText);
+
+        // Потім тут заміниш на меню Ігоря
+    }
+
+    public static boolean isGameOver() {
+        return gameOver;
+    }
+
 }

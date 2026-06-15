@@ -39,6 +39,13 @@ public class Monkey {
     private static final double COLLISION_INSET_X = 18;
     private static final double LANDING_TOLERANCE = 12;
 
+    private boolean dashing = false;
+    private double dashTimer = 0;
+
+    private static final double DASH_DURATION = 1.2;
+    private static final double DASH_SPEED_MULTIPLIER = 1.8;
+    private static final double TOP_LIMIT = 20;
+
     public Monkey(double groundY) {
         this.groundY = groundY;
         this.y = groundY - HEIGHT;
@@ -68,6 +75,7 @@ public class Monkey {
     }
 
     public void update(double time) {
+        updateDash(time);
         updatePhysics(time);
         updateAnimation(time);
     }
@@ -82,6 +90,12 @@ public class Monkey {
         velocityY += currentGravity * time;
         y += velocityY * time;
 
+        if (y < TOP_LIMIT) {
+            y = TOP_LIMIT;
+            velocityY = 0;
+        }
+
+
         if (y >= groundY - HEIGHT) {
             y = groundY - HEIGHT;
             velocityY = 0;
@@ -92,6 +106,17 @@ public class Monkey {
         }
 
         node.setY(y);
+    }
+
+    private void updateDash(double time) {
+        if (dashing) {
+            dashTimer -= time;
+
+            if (dashTimer <= 0) {
+                dashTimer = 0;
+                dashing = false;
+            }
+        }
     }
 
     private void updateAnimation(double time) {
@@ -232,11 +257,16 @@ public class Monkey {
     }
 
     public void dash() {
-        // поки заглушка
+        dashing = true;
+        dashTimer = DASH_DURATION;
     }
 
     public double getWorldSpeedMultiplier() {
-        return 1.0;
+        return dashing ? DASH_SPEED_MULTIPLIER : 1.0;
+    }
+
+    public boolean isDashing() {
+        return dashing;
     }
 
     public double getHeight(){ return HEIGHT; }
