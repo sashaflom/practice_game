@@ -34,6 +34,9 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void updateGameWithAcceleration(double time) {
+        if (GameService.isGameOver()) {
+            return;
+        }
         if(lastUpdate - magnetStart >= MAGNET_DURATION) {
             magnet = false;
             GameService.turnOffMagnet();
@@ -41,6 +44,8 @@ public class GameLoop extends AnimationTimer {
         GameService.moveBackground(time);
         GameService.moveFloor(time);
         GameService.movePlatform(time);
+        GameService.updateAvalanche(time);
+        GameService.checkGameOver();
         GameService.moveBanana(time);
         GameService.moveMagnet(time);
         GameService.collectBananas();
@@ -51,6 +56,10 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void updateGame(double time) {
+        if (GameService.isGameOver()) {
+            return;
+        }
+
         if(lastUpdate - magnetStart >= MAGNET_DURATION) {
             magnet = false;
             GameService.turnOffMagnet();
@@ -60,6 +69,10 @@ public class GameLoop extends AnimationTimer {
         GameService.moveFloor(time);
         GameService.movePlatform(time);
         GameService.checkPlatformCollisions();
+
+        GameService.updateAvalanche(time);
+        GameService.checkGameOver();
+
         GameService.moveBanana(time);
         GameService.collectMagnet();
         GameService.moveMagnet(time);
