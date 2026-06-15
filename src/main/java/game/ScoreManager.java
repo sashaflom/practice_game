@@ -47,9 +47,19 @@ public class ScoreManager {
 
     public void addBananas(int amount) {
         totalBananas += amount;
-        bananasForAcceleration -= amount;
         bananas.setText(String.valueOf(totalBananas));
-        acceleration.setText("до прискорення: " + bananasForAcceleration);
+        if(bananasForAcceleration - amount >= 0){
+            bananasForAcceleration -= amount;
+            acceleration.setText("до прискорення: " + bananasForAcceleration);
+        }
     }
 
+    public boolean checkForAcceleration() {
+        return bananasForAcceleration == 0;
+    }
+
+    public void setBaseBananasForAcceleration() {
+        this.bananasForAcceleration = ACCELERATION_AMOUNT;
+        acceleration.setText("до прискорення: " + bananasForAcceleration);
+    }
 }

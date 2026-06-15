@@ -32,13 +32,15 @@ public class GameService {
     private static final double START_SPEED = 100;
     private static final double SPEED_UP = 10;
     private static double currentSpeed;
+    private static double savedSpeed;
     private static ScoreManager scoreManager;
 
 
-    public static void setUp(Stage stage, Group group) {
+    public static void setUp(Stage stage, Group group, GameLoop loop) {
         currentStage = stage;
         root = group;
         currentSpeed = START_SPEED;
+        timer = loop;
 
         background = new Background("/images/background.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(background.getImageView1());
@@ -253,5 +255,22 @@ public class GameService {
             floor.setSpeed(currentSpeed);
             background.setSpeed(currentSpeed);
         }
+    }
+
+    public static void checkForAcceleration() {
+        if(scoreManager.checkForAcceleration()){
+            timer.setAcceleration(true);
+            savedSpeed = currentSpeed;
+            currentSpeed += 200;
+            BananaGenerator.changeSpeed(currentSpeed);
+            platformsGenerator.changeSpeed(currentSpeed);
+            floor.setSpeed(currentSpeed);
+            background.setSpeed(currentSpeed);
+        }
+    }
+
+    public static void comeBackFromAcceleration(){
+        scoreManager.setBaseBananasForAcceleration();
+        currentSpeed = savedSpeed;
     }
 }
