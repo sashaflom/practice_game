@@ -1,6 +1,7 @@
 package game;
 
 import game.bonus.BananaGenerator;
+import game.bonus.MagnetGenerator;
 import game.character.Monkey;
 import game.floor.Floor;
 import game.platform.PlatformsGenerator;
@@ -29,15 +30,17 @@ public class GameService {
     private static GameLoop timer;
     private static boolean spacePressed;
     private static PlatformsGenerator platformsGenerator;
-    private static final double START_SPEED = 100;
+    private static final double START_SPEED = 200;
     private static final double SPEED_UP = 10;
     private static double currentSpeed;
     private static ScoreManager scoreManager;
+    private static final double ACCELERATION = 300;
 
 
-    public static void setUp(Stage stage, Group group) {
+    public static void setUp(Stage stage, Group group, GameLoop loop) {
         currentStage = stage;
         root = group;
+        timer = loop;
         currentSpeed = START_SPEED;
 
         background = new Background("/images/background.png", screenWidth, screenHeight, START_SPEED);
@@ -53,7 +56,33 @@ public class GameService {
 
         setUpControls();
         platformsGenerator = new PlatformsGenerator(monkey.getHeight(), 150);
-        scoreManager = new ScoreManager(setUpDistance(), setUpBananas());
+        scoreManager = new ScoreManager(setUpDistance(), setUpBananas(), setUpAcceleration());
+    }
+
+    private static Text setUpAcceleration() {
+        Image image = new Image(GameService.class.getResourceAsStream("/images/banana.png"));
+        ImageView imageView = new ImageView(image);
+        imageView.setLayoutX(20);
+        imageView.setLayoutY(65);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
+        root.getChildren().add(imageView);
+        Text acceleration = new Text();
+        acceleration.setLayoutX(55);
+        acceleration.setLayoutY(88);
+        acceleration.setFont(Font.font("Arial Black", FontWeight.BOLD, 20));
+        acceleration.setFill(Color.web("#FFDE4D"));
+        acceleration.setStroke(Color.web("#3D2412"));
+        acceleration.setStrokeWidth(1.5);
+        DropShadow shadow = new DropShadow();
+        shadow.setRadius(4.0);
+        shadow.setOffsetX(3.0);
+        shadow.setOffsetY(3.0);
+        shadow.setColor(Color.web("#221207", 0.8)); // Тінь з прозорістю 80%
+
+        acceleration.setEffect(shadow);
+        root.getChildren().add(acceleration);
+        return acceleration;
     }
 
     private static Text setUpBananas() {
@@ -204,10 +233,21 @@ public class GameService {
         BananaGenerator.moveBananas(time);
     }
 
+    public static void moveMagnet(double time) {
+        MagnetGenerator.moveMagnets(time);
+    }
+
     public static void collectBananas() {
-        int collectedBananas = BananaGenerator.collectBananas(monkey);
+        int collectedBananas = BananaGenerator.collectBananas(monkey, scoreManager.isMagnet());
         if (collectedBananas > 0) {
             scoreManager.addBananas(collectedBananas);
+        }
+    }
+
+    public static void collectMagnet() {
+        int collectedMagnet = MagnetGenerator.collectMagnet(monkey);
+        if (collectedMagnet > 0) {
+            scoreManager.setMagnet(true);
         }
     }
 
@@ -223,9 +263,44 @@ public class GameService {
         if(scoreManager.checkForReachingMark()){
             currentSpeed += SPEED_UP;
             BananaGenerator.changeSpeed(currentSpeed);
+            MagnetGenerator.changeSpeed(currentSpeed);
             platformsGenerator.changeSpeed(currentSpeed);
             floor.setSpeed(currentSpeed);
             background.setSpeed(currentSpeed);
         }
+    }
+
+    public static void checkForAcceleration() {
+        if(scoreManager.checkForAcceleration()){
+            timer.accelerationTrue();
+            currentSpeed += ACCELERATION;
+            BananaGenerator.changeSpeed(currentSpeed);
+            MagnetGenerator.changeSpeed(currentSpeed);
+            platformsGenerator.changeSpeed(currentSpeed);
+            floor.setSpeed(currentSpeed);
+            background.setSpeed(currentSpeed);
+            monkey.setAccelerationMode();
+        }
+    }
+
+    public static void comeBackFromAcceleration() {
+        scoreManager.comeBackFromAcceleration();
+        currentSpeed -= ACCELERATION;
+        BananaGenerator.changeSpeed(currentSpeed);
+        MagnetGenerator.changeSpeed(currentSpeed);
+        platformsGenerator.changeSpeed(currentSpeed);
+        floor.setSpeed(currentSpeed);
+        background.setSpeed(currentSpeed);
+    }
+
+    public static void checkForMagnet() {
+        if(scoreManager.checkForMagnet()){
+            timer.magnetTrue();
+        }
+    }
+
+    public static void turnOffMagnet(){
+        scoreManager.setMagnet(false);
+        root.getChildren().remove(MagnetGenerator.getCurrentMagnet());
     }
 }
