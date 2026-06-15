@@ -1,7 +1,7 @@
 package game.bonus;
 
 import game.GameService;
-import javafx.scene.text.Text;
+import game.character.Monkey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +33,29 @@ public class BananaGenerator {
             if(!toRemove.isEmpty()) {
                 for(Banana banana : toRemove){
                     activeBananas.remove(banana);
-                    GameService.getRoot().getChildren().remove(banana);
+                    GameService.getRoot().getChildren().remove(banana.getImageView());
                 }
             }
         }
+    }
+
+    public static int collectBananas(Monkey monkey) {
+        int collected = 0;
+        List<Banana> toRemove = new ArrayList<>();
+
+        for (Banana banana : activeBananas) {
+            if (monkey.getNode().getBoundsInParent().intersects(banana.getImageView().getBoundsInParent())) {
+                collected++;
+                toRemove.add(banana);
+            }
+        }
+
+        for (Banana banana : toRemove) {
+            activeBananas.remove(banana);
+            GameService.getRoot().getChildren().remove(banana.getImageView());
+        }
+
+        return collected;
     }
 
     public static void changeSpeed(double newSpeed){

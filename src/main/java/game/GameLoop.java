@@ -22,7 +22,9 @@ public class GameLoop extends AnimationTimer {
         GameService.moveBackground(time);
         GameService.moveFloor(time);
         GameService.movePlatform(time);
+        GameService.checkPlatformCollisions();
         GameService.moveBanana(time);
+        GameService.collectBananas();
         GameService.updateDistance(time);
         GameService.changeSpeed();
         if(GameService.checkForNewPlatform()) GameService.generatePlatform();

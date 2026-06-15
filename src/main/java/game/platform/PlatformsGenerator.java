@@ -1,7 +1,6 @@
 package game.platform;
 
 import game.GameService;
-import game.bonus.Banana;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +10,16 @@ public class PlatformsGenerator {
 
     private List<Platform> activePlatforms;
     private Random random;
-    private double monkeyHeight;
-    private double monkeyJump;
-    private double minY;
     private double maxY;
     private final int maxBlocksAmount = 7;
     private final double widthBetweenPlatforms = 100;
+    private static final double PLATFORM_HEIGHT = 70;
+    private static final double GAP_BETWEEN_PLATFORM_LEVELS = 80;
+    private static final int PLATFORM_LEVELS = 2;
 
     public PlatformsGenerator(double monkeyHeight, double monkeyJump){
         activePlatforms = new ArrayList<>();
         random = new Random();
-        this.monkeyHeight = monkeyHeight;
-        this.monkeyJump = monkeyJump;
-        minY = monkeyHeight;
         maxY = GameService.getFieldHeight() - monkeyJump;
     }
 
@@ -33,15 +29,17 @@ public class PlatformsGenerator {
         if (activePlatforms.isEmpty()){
             y = maxY;
         } else{
-            Platform lastAdded = getLastAddedPlatform();
-            double min = lastAdded.getY() - monkeyJump;
-            if(min < minY) min = minY;
-            y = min + random.nextDouble() * (maxY - min);
+            y = getRandomLevelY();
         }
         Platform platform = new Platform("/images/floor_tile_crop.png", GameService.getScreenWidth(), y, blockAmount, GameService.getCurrentSpeed());
 
         GameService.getRoot().getChildren().add(platform.getNode());
         activePlatforms.add(platform);
+    }
+
+    private double getRandomLevelY() {
+        int level = random.nextInt(PLATFORM_LEVELS);
+        return maxY - level * (PLATFORM_HEIGHT + GAP_BETWEEN_PLATFORM_LEVELS);
     }
 
     public List<Platform> getActivePlatforms() {
