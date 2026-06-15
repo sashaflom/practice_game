@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.List;
 import java.util.Random;
+import game.obstacle.BarrelGenerator;
 
 public class Platform {
 
@@ -71,6 +72,7 @@ public class Platform {
             if(isMagnet) MagnetGenerator.generateMagnet(bananaX + 10, magnetY);
             bananaX += IMAGE_SIZE;
         }
+        BarrelGenerator.generateBarrel(x + width / 2, y);
     }
 
     public HBox getNode() {
