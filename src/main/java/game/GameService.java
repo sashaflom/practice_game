@@ -1,6 +1,7 @@
 package game;
 
 import game.bonus.BananaGenerator;
+import game.bonus.MagnetGenerator;
 import game.character.Monkey;
 import game.floor.Floor;
 import game.platform.PlatformsGenerator;
@@ -232,11 +233,25 @@ public class GameService {
         BananaGenerator.moveBananas(time);
     }
 
+    public static void moveMagnet(double time) {
+        MagnetGenerator.moveMagnets(time);
+    }
+
     public static void collectBananas() {
         int collectedBananas = BananaGenerator.collectBananas(monkey);
         if (collectedBananas > 0) {
             scoreManager.addBananas(collectedBananas);
         }
+    }
+
+    public static void collectMagnet() {
+        int collectedMagnet = MagnetGenerator.collectMagnet(monkey);
+        /*
+        if (collectedMagnet > 0) {
+            scoreManager.addBananas(collectedMagnet);
+        }
+
+         */
     }
 
     public static double getCurrentSpeed() {
@@ -251,6 +266,7 @@ public class GameService {
         if(scoreManager.checkForReachingMark()){
             currentSpeed += SPEED_UP;
             BananaGenerator.changeSpeed(currentSpeed);
+            MagnetGenerator.changeSpeed(currentSpeed);
             platformsGenerator.changeSpeed(currentSpeed);
             floor.setSpeed(currentSpeed);
             background.setSpeed(currentSpeed);
@@ -262,6 +278,7 @@ public class GameService {
             timer.accelerationTrue();
             currentSpeed += ACCELERATION;
             BananaGenerator.changeSpeed(currentSpeed);
+            MagnetGenerator.changeSpeed(currentSpeed);
             platformsGenerator.changeSpeed(currentSpeed);
             floor.setSpeed(currentSpeed);
             background.setSpeed(currentSpeed);
@@ -273,6 +290,7 @@ public class GameService {
         scoreManager.comeBackFromAcceleration();
         currentSpeed -= ACCELERATION;
         BananaGenerator.changeSpeed(currentSpeed);
+        MagnetGenerator.changeSpeed(currentSpeed);
         platformsGenerator.changeSpeed(currentSpeed);
         floor.setSpeed(currentSpeed);
         background.setSpeed(currentSpeed);
