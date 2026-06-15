@@ -342,6 +342,7 @@ public class GameService {
 
     public static void comeBackFromAcceleration() {
         scoreManager.comeBackFromAcceleration();
+        monkey.setAcceleration(false);
         currentSpeed -= ACCELERATION;
         BananaGenerator.changeSpeed(currentSpeed);
         MagnetGenerator.changeSpeed(currentSpeed);

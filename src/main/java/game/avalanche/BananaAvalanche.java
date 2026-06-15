@@ -57,7 +57,7 @@ public class BananaAvalanche {
 
         double speed = x >= DANGER_X ? DANGER_SPEED : NORMAL_SPEED;
 
-        if (monkey.isDashing()) {
+        if (monkey.isAcceleration()) {
             x -= BOOST_PUSH_BACK_SPEED * time;
         } else {
             x += speed * time;

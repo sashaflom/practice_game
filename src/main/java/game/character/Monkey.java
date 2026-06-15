@@ -42,6 +42,8 @@ public class Monkey {
     private boolean dashing = false;
     private double dashTimer = 0;
 
+    private boolean acceleration = false;
+
     private static final double DASH_DURATION = 1.2;
     private static final double DASH_SPEED_MULTIPLIER = 1.8;
     private static final double TOP_LIMIT = 20;
@@ -276,6 +278,7 @@ public class Monkey {
     }
 
     public void setAccelerationMode() {
+        acceleration = true;
         node.setImage(flyingImage);
         node.setFitWidth(FLYING_SIZE);
         node.setFitHeight(FLYING_SIZE);
@@ -283,5 +286,13 @@ public class Monkey {
 
     public double getX() {
         return x;
+    }
+
+    public boolean isAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(boolean acceleration) {
+        this.acceleration = acceleration;
     }
 }
