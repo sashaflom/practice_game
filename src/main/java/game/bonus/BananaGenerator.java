@@ -39,7 +39,7 @@ public class BananaGenerator {
         }
     }
 
-    public static int collectBananas(Monkey monkey) {
+    public static int collectBananas(Monkey monkey, boolean isMagnet) {
         int collected = 0;
         List<Banana> toRemove = new ArrayList<>();
 
@@ -47,6 +47,12 @@ public class BananaGenerator {
             if (monkey.getNode().getBoundsInParent().intersects(banana.getImageView().getBoundsInParent())) {
                 collected++;
                 toRemove.add(banana);
+            }
+            if(isMagnet){
+                if(Math.abs(monkey.getX() - banana.getX()) <= GameService.getScreenWidth() - 300){
+                    collected++;
+                    toRemove.add(banana);
+                }
             }
         }
 

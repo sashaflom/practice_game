@@ -3,6 +3,7 @@ package game.platform;
 import game.GameService;
 import game.bonus.Banana;
 import game.bonus.BananaGenerator;
+import game.bonus.MagnetGenerator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -47,12 +48,19 @@ public class Platform {
         double bananaX = x;
         int height = new Random().nextInt(2);
         double bananaY;
+        double magnetY;
+        boolean isMagnet;
         if(height == 0){
             bananaY = y - 40;
+            magnetY = y - 100;
+            isMagnet = true;
         }else{
             bananaY = y - 100;
+            magnetY = y - 40;
+            isMagnet = false;
         }
         if(bananaY < 0) bananaY = 0;
+        if(magnetY < 0) magnetY = 0;
 
         for (int i = 0; i < blockAmount; i++){
             ImageView imageView = new ImageView(image);
@@ -60,6 +68,7 @@ public class Platform {
             imageView.setFitHeight(IMAGE_SIZE);
             tileContainer.getChildren().add(imageView);
             BananaGenerator.generateBanana(bananaX + 10, bananaY);
+            if(isMagnet) MagnetGenerator.generateMagnet(bananaX + 10, magnetY);
             bananaX += IMAGE_SIZE;
         }
     }
