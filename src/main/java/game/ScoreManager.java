@@ -10,14 +10,20 @@ public class ScoreManager {
     private int lastMark;
     private Text score;
     private Text bananas;
+    private Text acceleration;
+    private int bananasForAcceleration;
+    private static final int ACCELERATION_AMOUNT = 10;
 
 
-    public ScoreManager(Text score, Text bananas){
+    public ScoreManager(Text score, Text bananas, Text acceleration){
         this.score = score;
         this.bananas = bananas;
+        this.acceleration = acceleration;
         totalDistance = 0.0;
         totalBananas = 0;
         lastMark = 0;
+        bananasForAcceleration = ACCELERATION_AMOUNT;
+        acceleration.setText("до прискорення: " + bananasForAcceleration);
     }
 
     public void updateDistance(double time, double currentSpeed){
@@ -41,7 +47,9 @@ public class ScoreManager {
 
     public void addBananas(int amount) {
         totalBananas += amount;
+        bananasForAcceleration -= amount;
         bananas.setText(String.valueOf(totalBananas));
+        acceleration.setText("до прискорення: " + bananasForAcceleration);
     }
 
 }
