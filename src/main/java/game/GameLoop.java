@@ -31,7 +31,6 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void updateGameWithAcceleration(double time) {
-        GameService.updateMonkey(time);
         GameService.moveBackground(time);
         GameService.moveFloor(time);
         GameService.movePlatform(time);

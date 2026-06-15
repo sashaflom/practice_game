@@ -244,4 +244,10 @@ public class Monkey {
     public double getJumpForce(){
         return -JUMP_FORCE;
     }
+
+    public void setAccelerationMode() {
+        node.setImage(flyingImage);
+        node.setFitWidth(FLYING_SIZE);
+        node.setFitHeight(FLYING_SIZE);
+    }
 }

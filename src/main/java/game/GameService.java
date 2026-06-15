@@ -265,6 +265,7 @@ public class GameService {
             platformsGenerator.changeSpeed(currentSpeed);
             floor.setSpeed(currentSpeed);
             background.setSpeed(currentSpeed);
+            monkey.setAccelerationMode();
         }
     }
 
