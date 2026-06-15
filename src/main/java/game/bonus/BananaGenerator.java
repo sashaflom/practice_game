@@ -67,4 +67,8 @@ public class BananaGenerator {
     public static void changeSpeed(double newSpeed){
         if(!activeBananas.isEmpty()) for (Banana banana : activeBananas) banana.setSpeed(newSpeed);
     }
+
+    public static void setActiveBananas(List<Banana> activeBananas) {
+        BananaGenerator.activeBananas = activeBananas;
+    }
 }

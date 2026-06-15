@@ -4,6 +4,7 @@ import game.bonus.BananaGenerator;
 import game.bonus.MagnetGenerator;
 import game.character.Monkey;
 import game.floor.Floor;
+import game.menu.start.MainMenu;
 import game.platform.PlatformsGenerator;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
@@ -18,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import game.avalanche.BananaAvalanche;
 import game.obstacle.BarrelGenerator;
+
+import java.util.ArrayList;
 
 public class GameService {
 
@@ -49,6 +52,9 @@ public class GameService {
         currentSpeed = START_SPEED;
         gameOver = false;
         gameOverText = null;
+        BananaGenerator.setActiveBananas(new ArrayList<>());
+        MagnetGenerator.setActiveMagnets(new ArrayList<>());
+        MagnetGenerator.setCurrentMagnet(null);
 
         background = new Background("/images/background.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(background.getImageView1());
@@ -168,6 +174,18 @@ public class GameService {
 
             if (event.getCode() == KeyCode.B) {
                 monkey.dropDown();
+            }
+
+            if(event.getCode() == KeyCode.ESCAPE){
+                timer.stop();
+                root.getChildren().clear();
+                MainMenu mainMenu = new MainMenu(
+                        "/images/main_menu_bg.png",
+                        "/images/main_menu_start_btn.png",
+                        GameService.getScreenHeight(),
+                        GameService.getScreenWidth(),
+                        currentStage,
+                        root);
             }
         });
 
@@ -307,6 +325,8 @@ public class GameService {
         gameOverText.setStrokeWidth(2);
 
         root.getChildren().add(gameOverText);
+
+
 
         // Потім тут заміниш на меню Ігоря
     }

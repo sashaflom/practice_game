@@ -83,4 +83,8 @@ public class MagnetGenerator {
     public static void setCurrentMagnet(ImageView currentMagnet) {
         MagnetGenerator.currentMagnet = currentMagnet;
     }
+
+    public static void setActiveMagnets(List<Magnet> activeMagnets) {
+        MagnetGenerator.activeMagnets = activeMagnets;
+    }
 }
