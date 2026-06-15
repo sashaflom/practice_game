@@ -53,7 +53,33 @@ public class GameService {
 
         setUpControls();
         platformsGenerator = new PlatformsGenerator(monkey.getHeight(), 150);
-        scoreManager = new ScoreManager(setUpDistance(), setUpBananas());
+        scoreManager = new ScoreManager(setUpDistance(), setUpBananas(), setUpAcceleration());
+    }
+
+    private static Text setUpAcceleration() {
+        Image image = new Image(GameService.class.getResourceAsStream("/images/banana.png"));
+        ImageView imageView = new ImageView(image);
+        imageView.setLayoutX(20);
+        imageView.setLayoutY(65);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
+        root.getChildren().add(imageView);
+        Text acceleration = new Text();
+        acceleration.setLayoutX(55);
+        acceleration.setLayoutY(88);
+        acceleration.setFont(Font.font("Arial Black", FontWeight.BOLD, 20));
+        acceleration.setFill(Color.web("#FFDE4D"));
+        acceleration.setStroke(Color.web("#3D2412"));
+        acceleration.setStrokeWidth(1.5);
+        DropShadow shadow = new DropShadow();
+        shadow.setRadius(4.0);
+        shadow.setOffsetX(3.0);
+        shadow.setOffsetY(3.0);
+        shadow.setColor(Color.web("#221207", 0.8)); // Тінь з прозорістю 80%
+
+        acceleration.setEffect(shadow);
+        root.getChildren().add(acceleration);
+        return acceleration;
     }
 
     private static Text setUpBananas() {
