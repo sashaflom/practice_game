@@ -1,5 +1,6 @@
 package game;
 
+import game.menu.start.MainMenu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -12,9 +13,7 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
-    public static Stage primaryStage;
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 
@@ -26,9 +25,20 @@ public class Main extends Application {
         stage.setTitle("Jungle Dash: Kong's Record");
         stage.setScene(scene);
 
-        GameLoop timer = new GameLoop();
-        GameService.setUp(stage, root);
+//        GameLoop timer = new GameLoop();
+//        GameService.setUp(stage, root);
+//        timer.start();
+        MainMenu mainMenu = new MainMenu(
+                "/images/main_menu_bg.png",
+                "/images/main_menu_start_btn.png",
+                GameService.getScreenHeight(),
+                GameService.getScreenWidth(),
+                stage,
+                root);
+
         stage.show();
-        timer.start();
     }
+
+
+
 }
