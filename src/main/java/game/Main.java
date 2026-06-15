@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -18,13 +20,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Main.primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Group root = new Group();
+        Scene scene = new Scene(root, GameService.getScreenWidth(), GameService.getScreenHeight());
 
-        Scene scene = new Scene(fxmlLoader.load(), 900, 500);
-
-        stage.setTitle("Test window");
+        stage.setTitle("Jungle Dash: Kong's Record");
         stage.setScene(scene);
+
+        GameLoop timer = new GameLoop();
+        GameService.setUp(stage, root);
         stage.show();
+        timer.start();
     }
 }

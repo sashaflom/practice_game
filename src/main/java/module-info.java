@@ -5,4 +5,6 @@ module game {
 
     opens game to javafx.fxml;
     exports game;
+    exports game.platform;
+    opens game.platform to javafx.fxml;
 }
