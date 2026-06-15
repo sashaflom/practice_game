@@ -44,6 +44,8 @@ public class GameLoop extends AnimationTimer {
         GameService.moveBackground(time);
         GameService.moveFloor(time);
         GameService.movePlatform(time);
+        GameService.updateAvalanche(time);
+        GameService.checkGameOver();
         GameService.moveBanana(time);
         GameService.moveMagnet(time);
         GameService.collectBananas();
