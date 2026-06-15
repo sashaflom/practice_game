@@ -3,7 +3,6 @@ package game;
 import game.bonus.BananaGenerator;
 import game.character.Monkey;
 import game.floor.Floor;
-import game.platform.Platform;
 import game.platform.PlatformsGenerator;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
@@ -12,9 +11,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -51,11 +47,12 @@ public class GameService {
         floor = new Floor("/images/floor_tile_crop.png", screenWidth, screenHeight, START_SPEED);
         root.getChildren().add(floor.getNode());
         fieldHeight = screenHeight - floor.getHeight();
-        monkey = new Monkey(floor.getGroundY());
+
+        monkey = new Monkey(floor.getY());
         root.getChildren().add(monkey.getNode());
 
         setUpControls();
-        platformsGenerator = new PlatformsGenerator(50, 150);
+        platformsGenerator = new PlatformsGenerator(monkey.getHeight(), 150);
         scoreManager = new ScoreManager(setUpDistance(), setUpBananas());
     }
 
@@ -102,11 +99,6 @@ public class GameService {
         score.setEffect(shadow);
         root.getChildren().add(score);
         return score;
-
-        monkey = new Monkey(floor.getGroundY());
-        root.getChildren().add(monkey.getNode());
-
-        setUpControls();
     }
 
     public static void moveBackground(double time) {

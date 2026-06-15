@@ -138,4 +138,10 @@ public class Monkey {
     public double getWorldSpeedMultiplier() {
         return 1.0;
     }
+
+    public double getHeight(){ return HEIGHT; }
+
+    public double getJumpForce(){
+        return -JUMP_FORCE;
+    }
 }

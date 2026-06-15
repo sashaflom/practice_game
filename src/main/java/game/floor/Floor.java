@@ -51,7 +51,7 @@ public class Floor {
         return tileContainer;
     }
 
-    public double getGroundY() {
+    public double getY() {
         return y;
     }
 
