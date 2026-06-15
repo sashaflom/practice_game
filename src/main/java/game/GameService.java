@@ -333,6 +333,7 @@ public class GameService {
             BananaGenerator.changeSpeed(currentSpeed);
             MagnetGenerator.changeSpeed(currentSpeed);
             platformsGenerator.changeSpeed(currentSpeed);
+            BarrelGenerator.changeSpeed(currentSpeed);
             floor.setSpeed(currentSpeed);
             background.setSpeed(currentSpeed);
             monkey.setAccelerationMode();
@@ -345,6 +346,7 @@ public class GameService {
         BananaGenerator.changeSpeed(currentSpeed);
         MagnetGenerator.changeSpeed(currentSpeed);
         platformsGenerator.changeSpeed(currentSpeed);
+        BarrelGenerator.changeSpeed(currentSpeed);
         floor.setSpeed(currentSpeed);
         background.setSpeed(currentSpeed);
     }
