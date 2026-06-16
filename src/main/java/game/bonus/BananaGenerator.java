@@ -23,10 +23,14 @@ public class BananaGenerator {
 
 
     public static void moveBananas(double time) {
+        moveBananas(time, 1.0);
+    }
+
+    public static void moveBananas(double time, double speedMultiplier) {
         List<Banana> toRemove = new ArrayList<>();
         if(!activeBananas.isEmpty()){
             for (Banana banana : activeBananas){
-                if(!banana.update(time)){
+                if(!banana.update(time, speedMultiplier)){
                     toRemove.add(banana);
                 }
             }

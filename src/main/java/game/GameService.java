@@ -185,7 +185,7 @@ public class GameService {
     }
 
     public static void movePlatform(double time) {
-        platformsGenerator.movePlatform(time);
+        platformsGenerator.movePlatform(time, monkey.getWorldSpeedMultiplier());
     }
 
     public static void checkPlatformCollisions() {
@@ -201,7 +201,7 @@ public class GameService {
     }
 
     public static void moveBanana(double time) {
-        BananaGenerator.moveBananas(time);
+        BananaGenerator.moveBananas(time, monkey.getWorldSpeedMultiplier());
     }
 
     public static void collectBananas() {
@@ -216,7 +216,7 @@ public class GameService {
     }
 
     public static void updateDistance(double time) {
-        scoreManager.updateDistance(time, currentSpeed);
+        scoreManager.updateDistance(time, currentSpeed * monkey.getWorldSpeedMultiplier());
     }
 
     public static void changeSpeed() {

@@ -23,7 +23,11 @@ public class Banana {
     }
 
     public boolean update(double time) {
-        double movement = speed * time;
+        return update(time, 1.0);
+    }
+
+    public boolean update(double time, double speedMultiplier) {
+        double movement = speed * speedMultiplier * time;
         x -= movement;
 
         imageView.setLayoutX(imageView.getLayoutX() - movement);

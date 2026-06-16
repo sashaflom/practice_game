@@ -51,10 +51,14 @@ public class PlatformsGenerator {
     }
 
     public void movePlatform(double time) {
+        movePlatform(time, 1.0);
+    }
+
+    public void movePlatform(double time, double speedMultiplier) {
         List<Platform> toRemove = new ArrayList<>();
 
         for (Platform platform : activePlatforms){
-            if(!platform.update(time)){
+            if(!platform.update(time, speedMultiplier)){
                 toRemove.add(platform);
             }
         }
