@@ -168,14 +168,6 @@ public class GameService {
                 monkey.startGlide();
             }
 
-            if (event.getCode() == KeyCode.V || event.getCode() == KeyCode.M || event.getCode() == KeyCode.W) {
-                monkey.dash();
-            }
-
-            if (event.getCode() == KeyCode.B) {
-                monkey.dropDown();
-            }
-
             if(event.getCode() == KeyCode.ESCAPE){
                 timer.stop();
                 root.getChildren().clear();
@@ -326,9 +318,6 @@ public class GameService {
 
         root.getChildren().add(gameOverText);
 
-
-
-        // Потім тут заміниш на меню Ігоря
     }
 
     public static boolean isGameOver() {
