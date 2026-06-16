@@ -4,9 +4,10 @@ import javafx.animation.AnimationTimer;
 
 public class GameLoop extends AnimationTimer {
     private long lastUpdate = 0;
+    // Час початку прискорення(лавина)
     private long accelerationStart = 0;
-    private static final long ACCELERATION_DURATION = 5000000000L;
-    private boolean acceleration = false;
+    private static final long ACCELERATION_DURATION = 5000000000L; // Тривалість прискорення (5 секунд у наносекундах)
+    private boolean acceleration = false; // Показує, чи активне зараз прискорення персонажа
     private boolean magnet = false;
     private long magnetStart = 0;
     private static final long MAGNET_DURATION = 5000000000L;

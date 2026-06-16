@@ -4,6 +4,10 @@ import game.character.Monkey;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+/*
+ * Клас лавини бананів.
+ * Керує анімацією, рухом та перевіркою зіткнення з персонажем.
+ */
 
 public class BananaAvalanche {
 
@@ -30,6 +34,10 @@ public class BananaAvalanche {
 
     private static final double FRAME_TIME = 0.12;
 
+    /*
+     * Створює лавину та завантажує кадри анімації.
+     */
+
     public BananaAvalanche(double groundY) {
         frames = new Image[9];
 
@@ -52,6 +60,12 @@ public class BananaAvalanche {
         node.setLayoutY(y);
     }
 
+
+    /*
+     * Оновлює положення лавини.
+     * Під час прискорення персонажа лавина відсувається назад.
+     */
+
     public void update(double time, Monkey monkey) {
         updateAnimation(time);
 
@@ -70,6 +84,10 @@ public class BananaAvalanche {
         node.setLayoutX(x);
     }
 
+    /*
+     * Змінює кадри лавини для створення ефекту руху.
+     */
+
     private void updateAnimation(double time) {
         animationTimer += time;
 
@@ -84,6 +102,11 @@ public class BananaAvalanche {
             node.setImage(frames[currentFrame]);
         }
     }
+
+
+    /*
+     * Перевіряє зіткнення персонажа з небезпечною зоною лавини.
+     */
 
     public boolean touches(Monkey monkey) {
 

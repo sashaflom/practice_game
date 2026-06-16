@@ -3,6 +3,11 @@ package game.obstacle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/*
+ * Клас перешкоди "Бочка".
+ * Використовується для створення небезпечних об'єктів на рівні.
+ */
+
 public class Barrel {
 
     private final ImageView imageView;
@@ -28,6 +33,11 @@ public class Barrel {
         imageView.setLayoutY(y);
     }
 
+    /*
+     * Переміщує бочку разом з ігровим світом.
+     * @return true якщо бочка ще знаходиться на екрані
+     */
+
     public boolean update(double time) {
         double movement = speed * time;
         x -= movement;
@@ -36,6 +46,9 @@ public class Barrel {
         return x > -size;
     }
 
+    /*
+     * Перевіряє зіткнення бочки з персонажем.
+     */
     public boolean touches(javafx.scene.Node monkeyNode) {
         return imageView.getBoundsInParent().intersects(monkeyNode.getBoundsInParent());
     }
